@@ -18,7 +18,7 @@ def bin2dec(b):
         return int(b, 2)
     else:
         b = b.replace("1", "x").replace("0", "1").replace("x", "0") 
-        return -1 * int(b,2) + 1
+        return -1 * (int(b,2) + 1)
 
 def dec2bin(d):
     """
@@ -169,7 +169,7 @@ def JP(AB):
         Add to the PC register the value AB 
         (here AB is a number not a register)
     """
-    a = bin2dec(R[5]) + bin2dec(AB)
+    a = bin2dec(R[5]) + bin2dec(AB) -1
     R[5] = dec2bin(a)
 
 def JZ(AB):
@@ -213,23 +213,24 @@ def run():
         #Fetch
         print("Cycle: " + str(i) + " ==> " + "FETCH")
         printRegisters()
-        inputCheck()
+        #inputCheck()
         R[4] = InstrSet[bin2dec(R[5])]
         #Decode
-        R[5] = dec2bin(bin2dec(R[5]) + 1)
         print("Cycle: " + str(i) + " ==> " + "DECODE")
         printRegisters()
-        inputCheck()
+        #inputCheck()
         #Execute
         print("Cycle: " + str(i) + " ==> " + "EXECUTE")
         printRegisters()
         print("Decoded Instruction: " + opcodes[R[4][:4]].__name__ + " " +R[4][4:])
-        inputCheck()
+        #inputCheck()
         opcodes[R[4][:4]](R[4][4:])
         i += 1
+        R[5] = dec2bin(bin2dec(R[5]) + 1)
 
 
 run()
+
 
 """
 def Fetch():
