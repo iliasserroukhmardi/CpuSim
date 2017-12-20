@@ -223,6 +223,19 @@ def JNZ(AB):
     if R[6] == '00000000':
         JP(AB)
 
+def JMP(AB):
+    a = R[int(AB[2:],2)] #B
+    #store the memory addres 
+    if a in Memory.keys():
+        R[5] = Memory.get(a)
+    else:
+        running = False
+        b = str(bin2dec(a))
+        print("The memory address "+b+" hasn't been initialized")
+        print("Make sure that the address "+b+" is in the memory file")
+        quit()
+
+
 def END(AB = '0000'):
     """
         End the execution 
@@ -230,7 +243,6 @@ def END(AB = '0000'):
     """
     global running 
     running = False
-    quit("\n"+15*'-'+"Programm succesfully terminated"+15*'-')
 
 
 
@@ -290,9 +302,11 @@ def run():
         print("Decoded Instruction: " + instuction )
         #inputCheck()
         execute()
-        
         i += 1
+        print("\n")
        
 run()
 Write2Memory()
+quit("\n"+15*'-'+"Programm succesfully terminated"+15*'-')
+
 
