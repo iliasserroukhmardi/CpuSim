@@ -81,10 +81,8 @@ def inputCheck():
 
 def Write2Memory():
     """
-        This function is going to be used at the end of the simulation to write all
-        changes to memory fileThe memory file gets loaded as a dictionnary.
-        Every modification of the memory is done to this dictionnary, so at the end
-        an update of the memory file is needed, and it's done through the dictionary  
+        Used at the end to update the memory file. Delete all content inside the file
+        and write it again using the Memory dictionary  
     """
     memoryFile.seek(0)
     memoryFile.truncate()
